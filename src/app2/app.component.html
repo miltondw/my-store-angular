@@ -1,0 +1,87 @@
+<h1>AngularJs</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+  <label>
+    Name
+    <input required name="name" type="text" [(ngModel)]="register.name"></label>
+  <label>
+    Email
+    <input required name="email" type="email" [(ngModel)]="register.email"></label>
+  <label>
+    Password
+    <input required name="password" type="password" [(ngModel)]="register.password"></label>
+  <button [disabled]="myForm.invalid" type="submit">Submit</button>
+</form>
+<p></p>
+<div *ngIf="show; else contentSecond">
+  <hr />
+  <h2>Ng Model</h2>
+
+  <p>Change Text:{{user.name}}</p>
+  <input [(ngModel)]="user.name">
+
+  <hr>
+  <h2>Events</h2>
+  <button [disabled]="btnDisabled">Submit</button>
+  <button (click)="toggleClick()">Toggle btn</button>
+  <p>{{user.age}}</p>
+  <progress max="100" [value]="user.age"></progress>
+  <button (click)="incrementAge()">Increment age</button>
+  <div class="box" (scroll)="onScroll($event)">
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Ipsum quaerat vel dignissimos dolor vitae nobis amet,
+      maxime possimus soluta eos
+      labore odit a impedit! Veniam delectus
+      quo dignissimos expedita harum.
+    </p>
+  </div>
+
+  <input type="text" (keyup)="onChange($event)" placeholder="Change name">
+  <hr>
+  <h2>Properties</h2>
+  <form action="">
+    <input type="text" [value]="user.name">
+    <input type="number" [value]="user.age">
+    <button [disabled]="btnDisabled">Submit</button>
+  </form>
+  <div>
+    <h2>Class & styles</h2>
+    <input type="text" #inputName="ngModel" required [(ngModel)]="user.name">
+    <p class="message-error" [class.active]="inputName.invalid">El campo es requerido</p>
+    <div class="styles">
+      <div>
+        <input [(ngModel)]="box.width" type="number">
+        <input [(ngModel)]="box.height" type="number">
+        <input [(ngModel)]="box.background" type="color">
+      </div>
+      <div [ngStyle]="{
+       'width.px': box.width,
+        'height.px': box.height,
+        'background-color': box.background,
+          'display':'block'
+      }">
+      </div>
+    </div>
+    <div>
+      <h2>*ngFor emojis</h2>
+      <label>
+        Insert Emoji
+        <input type="text" [value]="newEmoji" [(ngModel)]="newEmoji">
+      </label>
+      <button (click)="addEmoji()">Add Emoji</button>
+      <li *ngIf="emojis.length<1">No hay Emojis</li>
+      <li *ngFor="let emoji of emojis; index as i">
+        {{emoji}} <button (click)="removeEmoji(i)">Remove Emoji</button>
+      </li>
+    </div>
+    <div [ngSwitch]="user.age">
+      <div *ngSwitchCase="18">Mayor de edad</div>
+      <div *ngSwitchCase="21">menor de edad</div>
+      <div *ngSwitchDefault>No hay edad valida</div>
+    </div>
+  </div>
+
+</div>
+<ng-template #contentSecond>
+  <h2>Else ng-template </h2>
+</ng-template>

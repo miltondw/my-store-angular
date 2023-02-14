@@ -1,0 +1,8 @@
+<div class="product">
+  <app-img [img]="product.images[0]"></app-img>
+  <h2>{{ product.title }}</h2>
+  <p class="date">Product public {{ date | timeAgo }}</p>
+  <!-- <p>{{ product.description }}</p> -->
+  <!-- <p>{{ product.category.name }}</p> -->
+  <p class="price">${{ product.price }}</p>
+</div>
