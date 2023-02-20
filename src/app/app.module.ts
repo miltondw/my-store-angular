@@ -15,7 +15,16 @@ import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 //Interceptors
 import { TimeInterceptor } from './interceptors/time.interceptor'
-import { TokenInterceptor } from './interceptors/token.interceptor'
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { HomeComponent } from './pages/home/home.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { MycartComponent } from './pages/mycart/mycart.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { RecoveryComponent } from './pages/recovery/recovery.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { NavComponent } from './components/nav/nav.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +34,15 @@ import { TokenInterceptor } from './interceptors/token.interceptor'
     ProductsComponent,
     ReversePipe,
     TimeAgoPipe,
+    HomeComponent,
+    NotFoundComponent,
+    CategoryComponent,
+    MycartComponent,
+    LoginComponent,
+    RegisterComponent,
+    RecoveryComponent,
+    ProfileComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,

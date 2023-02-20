@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { tap, map } from 'rxjs/operators';
-import { IFile } from './../models/File'
+import { IFile, IfileImg } from './../models/File'
 import { saveAs } from 'file-saver'
+import { environment } from './../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
 export class FilesService {
-
+  private url: string = `${environment.API_URL}/api/files`
   constructor (
     private http: HttpClient
   ) { }
@@ -23,5 +24,10 @@ export class FilesService {
         ),
         map(() => true)
       )
+  }
+  uploadFile(file: Blob) {
+    const dto = new FormData()
+    dto.append('file', file)
+    return this.http.post<IfileImg>(`${this.url}/upload`, dto)
   }
 }

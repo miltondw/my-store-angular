@@ -5,9 +5,11 @@ import { ProductsService } from '../../services/products.service'
 import { UsersService } from '../../services/users.service'
 import { AuthService } from '../../services/auth.service'
 import { FilesService } from '../../services/files.service'
+import { StoreService } from '../../services/store.service'
 //Models
 import { IProduct, ICreateProductDTO } from '../../models/Product'
 import { IUser, ICreateUserDTO } from './../../models/User';
+import { IfileImg } from './../../models/File';
 
 
 @Component({
@@ -25,6 +27,11 @@ export class ProductsComponent implements OnInit {
     id: 0,
     password: ""
   };
+  imgRta: IfileImg = {
+    filename: "",
+    location: "",
+    originalname: ""
+  }
   countProducts: number = 10
   productDetail: IProduct = {
     "id": 0,
@@ -40,16 +47,22 @@ export class ProductsComponent implements OnInit {
   }
   limit: number = 10;
   offset: number = 0;
+  myShoppingCart: IProduct[] = [];
+  total = 0;
   constructor (
     private productsService: ProductsService,
     private toastr: ToastrService,
     private usersService: UsersService,
     private authService: AuthService,
-    private filesService: FilesService
-  ) { }
+    private filesService: FilesService,
+    private storeService: StoreService,
+  ) {
+    this.myShoppingCart = this.storeService.getShoppingCart();
+  }
   detailActive: boolean = false
   btnMoreActive: boolean = true
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init'
+
   // CUD Product
   createProduct() {
     const newProduct: ICreateProductDTO = {
@@ -119,6 +132,34 @@ export class ProductsComponent implements OnInit {
       }
     })
   }
+
+
+
+  ngOnInit(): void {
+    this.productsService.getProducts()
+      .subscribe({
+        next: (data) => {
+          this.countProducts = data.length
+        },
+        error(err) {
+          console.log(err, "Error")
+        },
+      })
+    this.productsService.getProductByPage(10, 0)
+      .subscribe(data => {
+        this.products = data
+        this.offset += this.limit
+      });
+    //Users
+    this.usersService.getAll().subscribe((data) => {
+      this.users = data
+      // console.log(this.users, "users")
+    })
+  }
+  onAddToShoppingCart(product: IProduct) {
+    this.storeService.addProduct(product);
+    this.total = this.storeService.getTotal();
+  }
   //Detail
   toggleDetail() {
     this.detailActive = !this.detailActive
@@ -150,6 +191,7 @@ export class ProductsComponent implements OnInit {
         }
       });
   }
+  //Files
   dowloadPDF() {
     const file = {
       name: "my.pdf",
@@ -158,25 +200,14 @@ export class ProductsComponent implements OnInit {
     }
     this.filesService.getFile(file).subscribe((res) => console.log(res))
   }
-  ngOnInit(): void {
-    this.productsService.getProducts()
-      .subscribe({
-        next: (data) => {
-          this.countProducts = data.length
-        },
-        error(err) {
-          console.log(err, "Error")
-        },
-      })
-    this.productsService.getProductByPage(10, 0)
-      .subscribe(data => {
-        this.products = data
-        this.offset += this.limit
-      });
-    //Users
-    this.usersService.getAll().subscribe((data) => {
-      this.users = data
-      // console.log(this.users, "users")
-    })
+  onUploadFile(e: Event) {
+    const element = e.target as HTMLInputElement
+    const file = element.files?.item(0)
+    if (file) {
+      this.filesService.uploadFile(file)
+        .subscribe((rta) => {
+          this.imgRta = rta
+        })
+    }
   }
 }

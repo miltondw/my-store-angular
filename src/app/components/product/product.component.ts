@@ -20,7 +20,10 @@ export class ProductComponent {
   }
   @Output() showDetail = new EventEmitter<number>()
   detailActive = false
-
+  @Output() addedProduct = new EventEmitter<IProduct>();
+  onAddToCart() {
+    this.addedProduct.emit(this.product);
+  }
   onShowDetail() {
     this.detailActive = !this.detailActive
     this.showDetail.emit(this.product.id)
