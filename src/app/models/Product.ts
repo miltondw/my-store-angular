@@ -9,5 +9,12 @@ export interface IProduct {
   price: number
   description: string
   category: ICategory
-  images: string[]
+  images: string[],
+  taxes?: number
 }
+
+export interface ICreateProductDTO extends Omit<IProduct, 'id' | 'category'> {
+  categoryId: number
+}
+
+export interface IUpdateProductDTO extends Partial<ICreateProductDTO> { }
