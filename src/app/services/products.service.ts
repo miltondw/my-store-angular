@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators'
 import { Observable, throwError } from 'rxjs';
 import { IProduct, ICreateProductDTO, IUpdateProductDTO } from '../models/Product'
 import { environment } from './../../environments/environment'
-
+import { checkTime } from './../interceptors/time.interceptor'
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +19,8 @@ export class ProductsService {
   }
   getProductByPage(limit: number, offset: number): Observable<any> {
     return this.http.get<IProduct[]>(this.url2, {
-      params: { limit, offset }
+      params: { limit, offset },
+      context: checkTime()
     })
       .pipe(
         catchError((error: HttpErrorResponse) => {

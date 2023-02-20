@@ -5,7 +5,7 @@ import { environment } from './../../environments/environment'
 import { IAuth, IAuthDTO } from '../models/Auth'
 import { IUser } from '../models/User';
 import { switchMap, tap } from 'rxjs/operators';
-
+import { checkToken } from './../interceptors/token.interceptor'
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +26,9 @@ export class AuthService {
     )
   }
   profile() {
-    return this.http.get<IUser>(`${this.url2}/profile`)
+    return this.http.get<IUser>(`${this.url2}/profile`, {
+      context: checkToken()
+    })
     // , {
     //   headers: {
     //     Authorization: `Bearer ${token}`
