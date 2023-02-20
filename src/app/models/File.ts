@@ -3,7 +3,7 @@ export interface IFile {
   url: string,
   type: string
 }
-export interface IfileImg {
+export interface IFileImg {
   originalname: string,
   filename: string,
   location: string

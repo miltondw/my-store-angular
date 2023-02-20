@@ -3,13 +3,12 @@ import { ToastrService } from 'ngx-toastr';
 //services
 import { ProductsService } from '../../services/products.service'
 import { UsersService } from '../../services/users.service'
-import { AuthService } from '../../services/auth.service'
 import { FilesService } from '../../services/files.service'
 import { StoreService } from '../../services/store.service'
 //Models
 import { IProduct, ICreateProductDTO } from '../../models/Product'
 import { IUser, ICreateUserDTO } from './../../models/User';
-import { IfileImg } from './../../models/File';
+import { IFileImg } from './../../models/File';
 
 
 @Component({
@@ -21,13 +20,7 @@ import { IfileImg } from './../../models/File';
 export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
   users: IUser[] = []
-  profile: IUser = {
-    email: "",
-    name: "",
-    id: 0,
-    password: ""
-  };
-  imgRta: IfileImg = {
+  imgRta: IFileImg = {
     filename: "",
     location: "",
     originalname: ""
@@ -53,7 +46,6 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     private toastr: ToastrService,
     private usersService: UsersService,
-    private authService: AuthService,
     private filesService: FilesService,
     private storeService: StoreService,
   ) {
@@ -94,7 +86,7 @@ export class ProductsComponent implements OnInit {
       this.toggleDetail()
     })
   }
-  // CUD User
+  // Create User
   createUser() {
     const newUser: ICreateUserDTO = {
       email: "chirly@estrada.com",
@@ -107,33 +99,6 @@ export class ProductsComponent implements OnInit {
       }
     })
   }
-  Login() {
-    const user = {
-      email: "chirly@estrada.com",
-      password: "milton"
-    }
-    this.authService.login(user)
-  }
-  getProfile() {
-    this.authService.profile().subscribe({
-      next: (data) => {
-        console.log(data)
-      }
-    })
-  }
-  loginAndProfile() {
-    const user = {
-      email: "chirly@estrada.com",
-      password: "milton"
-    }
-    this.authService.loginAndProfile(user).subscribe({
-      next: (data) => {
-        this.profile = data
-      }
-    })
-  }
-
-
 
   ngOnInit(): void {
     this.productsService.getProducts()
@@ -192,7 +157,7 @@ export class ProductsComponent implements OnInit {
       });
   }
   //Files
-  dowloadPDF() {
+  downloadPDF() {
     const file = {
       name: "my.pdf",
       type: "application/pdf",

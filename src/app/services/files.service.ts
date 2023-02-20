@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { tap, map } from 'rxjs/operators';
-import { IFile, IfileImg } from './../models/File'
+import { IFile, IFileImg } from './../models/File'
 import { saveAs } from 'file-saver'
 import { environment } from './../../environments/environment'
 @Injectable({
@@ -28,6 +28,6 @@ export class FilesService {
   uploadFile(file: Blob) {
     const dto = new FormData()
     dto.append('file', file)
-    return this.http.post<IfileImg>(`${this.url}/upload`, dto)
+    return this.http.post<IFileImg>(`${this.url}/upload`, dto)
   }
 }

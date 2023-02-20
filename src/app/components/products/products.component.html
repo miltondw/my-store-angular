@@ -1,8 +1,8 @@
 <div class="grid-btns">
-  <button (click)="createProduct()">Create</button>
+  <!-- <button (click)="createProduct()">Create</button>
   <button (click)="onShowDetail(123)">Error product</button>
   <button (click)="createUser()">Create User</button>
-  <button (click)="dowloadPDF()">DowLoad PDF</button>
+  <button (click)="downloadPDF()">DowLoad PDF</button>
   <input type="file" (change)="onUploadFile($event)" />
   <img
     *ngIf="imgRta.location"
@@ -10,16 +10,7 @@
     [alt]="imgRta.originalname"
     width="200"
     height="300"
-  />
-
-  <ng-container *ngIf="!profile.email; else profileContent">
-    <button (click)="loginAndProfile()">Login</button>
-  </ng-container>
-  <ng-template #profileContent>
-    <p>
-      {{ profile.email }}
-    </p>
-  </ng-template>
+  /> -->
 </div>
 <div class="grid-products">
   <app-product
