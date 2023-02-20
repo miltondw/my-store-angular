@@ -2,8 +2,14 @@
   <button (click)="createProduct()">Create</button>
   <button (click)="onShowDetail(123)">Error product</button>
   <button (click)="createUser()">Create User</button>
-  <button (click)="Login()">Login</button>
-  <button (click)="getProfile()">profile</button>
+  <ng-container *ngIf="!profile.email; else profileContent">
+    <button (click)="loginAndProfile()">Login</button>
+  </ng-container>
+  <ng-template #profileContent>
+    <p>
+      {{ profile.email }}
+    </p>
+  </ng-template>
 </div>
 <div class="grid-products">
   <app-product

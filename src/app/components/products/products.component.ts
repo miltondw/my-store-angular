@@ -18,6 +18,12 @@ import { IUser, ICreateUserDTO } from './../../models/User';
 export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
   users: IUser[] = []
+  profile: IUser = {
+    email: "",
+    name: "",
+    id: 0,
+    password: ""
+  };
   countProducts: number = 10
   productDetail: IProduct = {
     "id": 0,
@@ -42,7 +48,6 @@ export class ProductsComponent implements OnInit {
   detailActive: boolean = false
   btnMoreActive: boolean = true
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init'
-  token: string = ""
   // CUD Product
   createProduct() {
     const newProduct: ICreateProductDTO = {
@@ -92,16 +97,23 @@ export class ProductsComponent implements OnInit {
       email: "chirly@estrada.com",
       password: "milton"
     }
-    this.authService.login(user).subscribe({
+    this.authService.login(user)
+  }
+  getProfile() {
+    this.authService.profile().subscribe({
       next: (data) => {
-        this.token = data.access_token
+        console.log(data)
       }
     })
   }
-  getProfile() {
-    this.authService.profile(this.token).subscribe({
+  loginAndProfile() {
+    const user = {
+      email: "chirly@estrada.com",
+      password: "milton"
+    }
+    this.authService.loginAndProfile(user).subscribe({
       next: (data) => {
-        console.log(data)
+        this.profile = data
       }
     })
   }
