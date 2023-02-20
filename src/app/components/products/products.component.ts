@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../services/products.service'
 import { UsersService } from '../../services/users.service'
 import { AuthService } from '../../services/auth.service'
+import { FilesService } from '../../services/files.service'
 //Models
 import { IProduct, ICreateProductDTO } from '../../models/Product'
 import { IUser, ICreateUserDTO } from './../../models/User';
@@ -43,7 +44,8 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     private toastr: ToastrService,
     private usersService: UsersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private filesService: FilesService
   ) { }
   detailActive: boolean = false
   btnMoreActive: boolean = true
@@ -147,6 +149,14 @@ export class ProductsComponent implements OnInit {
           this.btnMoreActive = false
         }
       });
+  }
+  dowloadPDF() {
+    const file = {
+      name: "my.pdf",
+      type: "application/pdf",
+      url: "https://young-sands-07814.herokuapp.com/api/files/dummy.pdf"
+    }
+    this.filesService.getFile(file).subscribe((res) => console.log(res))
   }
   ngOnInit(): void {
     this.productsService.getProducts()
