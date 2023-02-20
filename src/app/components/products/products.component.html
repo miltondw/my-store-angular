@@ -1,6 +1,27 @@
+<div class="grid-btns">
+  <button (click)="createProduct()">Create</button>
+  <button (click)="onShowDetail(123)">Error product</button>
+  <button (click)="createUser()">Create User</button>
+  <button (click)="Login()">Login</button>
+  <button (click)="getProfile()">profile</button>
+</div>
 <div class="grid-products">
   <app-product
     [product]="product"
     *ngFor="let product of products"
+    (showDetail)="onShowDetail($event)"
   ></app-product>
+  <button *ngIf="btnMoreActive" (click)="loadMore()">Load More</button>
+</div>
+<div class="detail" [class.detailActive]="detailActive">
+  <button class="closed" (click)="toggleDetail()">X</button>
+  <div>
+    <app-img [img]="productDetail.images[0]"></app-img>
+    <h2>{{ productDetail.title }}</h2>
+    <p>${{ productDetail.price }}</p>
+    <p>{{ productDetail.description }}</p>
+    <p>{{ productDetail.category.name }}</p>
+    <button (click)="updateProduct()">Edit</button>
+    <button (click)="deleteProduct()">Delete</button>
+  </div>
 </div>

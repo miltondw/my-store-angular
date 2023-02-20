@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@import "ngx-toastr/toastr-bs5-alert";
+
+// @import "ngx-toastr/toastr-bs4-alert";
+// @import "ngx-toastr/toastr.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+body {
+  overflow-x: hidden;
+}
+/* ngx-toastr styles */
+
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+  .toast-error {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  .toast-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .toast-message {
+    font-size: 16px;
+  }
+}
+
+::ng-deep .toast-info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+::ng-deep .toast-warning {
+  background-color: #ffc107;
+  color: #fff;
+}

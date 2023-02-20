@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+//services
 import { ProductsService } from '../../services/products.service'
-import { IProduct } from '../../models/Product'
+import { UsersService } from '../../services/users.service'
+import { AuthService } from '../../services/auth.service'
+//Models
+import { IProduct, ICreateProductDTO } from '../../models/Product'
+import { IUser, ICreateUserDTO } from './../../models/User';
+
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -9,12 +17,144 @@ import { IProduct } from '../../models/Product'
 
 export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
-
-  constructor (private productsService: ProductsService) { }
-
-
-  ngOnInit(): void {
-    this.productsService.getProducts().subscribe(data => {this.products = data});
+  users: IUser[] = []
+  countProducts: number = 10
+  productDetail: IProduct = {
+    "id": 0,
+    "title": "title",
+    "price": 0,
+    "description": "description",
+    "category": {
+      id: 0,
+      name: "category",
+      typeImg: ""
+    },
+    "images": []
   }
+  limit: number = 10;
+  offset: number = 0;
+  constructor (
+    private productsService: ProductsService,
+    private toastr: ToastrService,
+    private usersService: UsersService,
+    private authService: AuthService
+  ) { }
+  detailActive: boolean = false
+  btnMoreActive: boolean = true
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init'
+  token: string = ""
+  // CUD Product
+  createProduct() {
+    const newProduct: ICreateProductDTO = {
+      "title": "title",
+      "price": 120,
+      "description": "I'm a description",
+      "categoryId": 1,
+      "images": ["https://picsum.photos/200/", "https://picsum.photos/201/", "https://picsum.photos/203/"]
+    }
+    this.productsService.create(newProduct)
+      .subscribe((data: IProduct) => {
+        this.products.unshift(data)
+      })
+  }
+  updateProduct() {
+    const updateProduct = { title: "title updated" }
+    const id = this.productDetail.id
+    this.productsService.update(id, updateProduct).subscribe((data) => {
+      const productIndex = this.products.findIndex(p => p.id === id)
+      this.products[productIndex] = data
+      this.productDetail = data
+    })
+  }
+  deleteProduct() {
+    const id = this.productDetail.id
+    this.productsService.delete(id).subscribe(() => {
+      const productIndex = this.products.findIndex(p => p.id === id)
+      this.products.splice(productIndex, 1)
+      this.toggleDetail()
+    })
+  }
+  // CUD User
+  createUser() {
+    const newUser: ICreateUserDTO = {
+      email: "chirly@estrada.com",
+      name: "chirly",
+      password: "milton"
+    }
+    this.usersService.create(newUser).subscribe({
+      next: (data) => {
+        this.users.unshift(data)
+      }
+    })
+  }
+  Login() {
+    const user = {
+      email: "chirly@estrada.com",
+      password: "milton"
+    }
+    this.authService.login(user).subscribe({
+      next: (data) => {
+        this.token = data.access_token
+      }
+    })
+  }
+  getProfile() {
+    this.authService.profile(this.token).subscribe({
+      next: (data) => {
+        console.log(data)
+      }
+    })
+  }
+  //Detail
+  toggleDetail() {
+    this.detailActive = !this.detailActive
+  }
+  onShowDetail(id: number) {
+    this.statusDetail = 'loading'
+    this.productsService.getProduct(id)
+      .subscribe({
+        next: (data) => {
+          this.toggleDetail()
+          this.productDetail = data
+          this.statusDetail = 'success'
+          this.toastr.success('Operación exitosa', '¡Genial!');
+        },
+        error: (err) => {
+          this.statusDetail = 'error'
+          this.toastr.error(err.error.message);
 
+        }
+      })
+  }
+  loadMore() {
+    this.productsService.getProductByPage(this.limit, this.offset)
+      .subscribe(data => {
+        this.products = this.products.concat(data)
+        this.offset += this.limit
+        if (this.products.length === this.countProducts) {
+          this.btnMoreActive = false
+        }
+      });
+  }
+  ngOnInit(): void {
+    this.productsService.getProducts()
+      .subscribe({
+        next: (data) => {
+          this.countProducts = data.length
+        },
+        error(err) {
+          console.log(err, "Error")
+        },
+      })
+    this.productsService.getProductByPage(10, 0)
+      .subscribe(data => {
+        this.products = data
+        this.offset += this.limit
+      });
+    //Users
+    this.usersService.getAll().subscribe((data) => {
+      this.users = data
+      // console.log(this.users, "users")
+    })
+  }
 }
