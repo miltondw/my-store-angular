@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 //services
+import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../services/products.service'
 import { UsersService } from '../../services/users.service'
 import { FilesService } from '../../services/files.service'
 import { StoreService } from '../../services/store.service'
 //Models
-import { IProduct, ICreateProductDTO } from '../../models/Product'
+import { IProduct, ICreateProductDTO, ILoadMore } from '../../models/Product'
 import { IUser, ICreateUserDTO } from './../../models/User';
 import { IFileImg } from './../../models/File';
 
@@ -18,14 +18,19 @@ import { IFileImg } from './../../models/File';
 })
 
 export class ProductsComponent implements OnInit {
-  products: IProduct[] = [];
+  @Input() products: IProduct[] = [];
+  @Output() loadMore = new EventEmitter<ILoadMore>();
+  @Input() btnMoreActive: boolean = true
+
+  onLoadMore() {
+    this.loadMore.emit()
+  }
   users: IUser[] = []
   imgRta: IFileImg = {
     filename: "",
     location: "",
     originalname: ""
   }
-  countProducts: number = 10
   productDetail: IProduct = {
     "id": 0,
     "title": "title",
@@ -38,10 +43,8 @@ export class ProductsComponent implements OnInit {
     },
     "images": []
   }
-  limit: number = 10;
-  offset: number = 0;
   myShoppingCart: IProduct[] = [];
-  total = 0;
+  total: number = 0;
   constructor (
     private productsService: ProductsService,
     private toastr: ToastrService,
@@ -52,7 +55,6 @@ export class ProductsComponent implements OnInit {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
   detailActive: boolean = false
-  btnMoreActive: boolean = true
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init'
 
   // CUD Product
@@ -101,20 +103,6 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getProducts()
-      .subscribe({
-        next: (data) => {
-          this.countProducts = data.length
-        },
-        error(err) {
-          console.log(err, "Error")
-        },
-      })
-    this.productsService.getProductByPage(10, 0)
-      .subscribe(data => {
-        this.products = data
-        this.offset += this.limit
-      });
     //Users
     this.usersService.getAll().subscribe((data) => {
       this.users = data
@@ -146,16 +134,7 @@ export class ProductsComponent implements OnInit {
         }
       })
   }
-  loadMore() {
-    this.productsService.getProductByPage(this.limit, this.offset)
-      .subscribe(data => {
-        this.products = this.products.concat(data)
-        this.offset += this.limit
-        if (this.products.length === this.countProducts) {
-          this.btnMoreActive = false
-        }
-      });
-  }
+
   //Files
   downloadPDF() {
     const file = {

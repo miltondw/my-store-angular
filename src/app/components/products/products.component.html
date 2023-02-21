@@ -19,7 +19,7 @@
     (showDetail)="onShowDetail($event)"
     (addedProduct)="onAddToShoppingCart($event)"
   ></app-product>
-  <button *ngIf="btnMoreActive" (click)="loadMore()">Load More</button>
+  <button *ngIf="btnMoreActive" (click)="onLoadMore()">Load More</button>
 </div>
 <div class="detail" [class.detailActive]="detailActive">
   <button class="closed" (click)="toggleDetail()">X</button>

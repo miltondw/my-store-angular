@@ -12,6 +12,10 @@ export interface IProduct {
   images: string[],
   taxes?: number
 }
+export interface ILoadMore {
+  limit: number,
+  offset: number
+}
 
 export interface ICreateProductDTO extends Omit<IProduct, 'id' | 'category'> {
   categoryId: number

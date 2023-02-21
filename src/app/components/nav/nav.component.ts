@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from './../../models/User';
 import { StoreService } from '../../services/store.service'
 import { AuthService } from '../../services/auth.service'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -21,6 +22,7 @@ export class NavComponent implements OnInit {
   constructor (
     private storeService: StoreService,
     private authService: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -34,19 +36,26 @@ export class NavComponent implements OnInit {
   }
   getProfile() {
     this.authService.profile().subscribe({
-      next: (data) => {
-        console.log(data)
+      next: () => {
+        this.toastr.success('Login success');
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message);
       }
     })
   }
   loginAndProfile() {
     const user = {
-      email: "chirly@estrada.com",
-      password: "milton"
+      email: "john@mail.com",
+      password: "changeme"
     }
     this.authService.loginAndProfile(user).subscribe({
       next: (data) => {
         this.profile = data
+        this.toastr.success('Login success');
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message);
       }
     })
   }
