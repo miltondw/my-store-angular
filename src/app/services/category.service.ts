@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http'
 import { environment } from './../../environments/environment'
-import { IProduct } from '../models/Product'
+import { IProduct, ICategory } from '../models/Product'
 import { Observable, throwError } from 'rxjs';
-
-import { catchError } from 'rxjs/operators'
+import { catchError, retry } from 'rxjs/operators'
 
 
 @Injectable({
@@ -23,6 +22,7 @@ export class CategoryService {
       params: { limit, offset },
     })
       .pipe(
+        retry(3),
         catchError((error: HttpErrorResponse) => {
           switch (error.status) {
             case HttpStatusCode.ServiceUnavailable:
@@ -36,5 +36,10 @@ export class CategoryService {
           }
         })
       );
+  }
+  getCategories() {
+    return this.http.get<ICategory[]>(this.url).pipe(
+      retry(3)
+    )
   }
 }

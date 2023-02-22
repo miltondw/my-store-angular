@@ -30,8 +30,9 @@ export class CategoryComponent implements OnInit {
         }),
         switchMap((products) => {
           this.products = products
-          this.categoryName = this.products[0].category.name
-          this.offset += this.limit
+          if (this.products[0].category.name) {
+            this.categoryName = this.products[0].category.name
+          }
           return this.categoryService.getProductsByCategory(this.categoryId)
         })
       )

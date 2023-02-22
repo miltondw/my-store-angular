@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from './../../models/User';
+import { ICategory } from './../../models/Product';
 import { StoreService } from '../../services/store.service'
 import { AuthService } from '../../services/auth.service'
+import { CategoryService } from '../../services/category.service'
 import { ToastrService } from 'ngx-toastr';
+import { retry } from 'rxjs/operators'
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-
+  categories: ICategory[] = []
   activeMenu = false;
   counter = 0;
   profile: IUser = {
@@ -22,13 +25,17 @@ export class NavComponent implements OnInit {
   constructor (
     private storeService: StoreService,
     private authService: AuthService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private categoryService: CategoryService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length;
     });
+    this.getAllCategory()
   }
 
   toggleMenu() {
@@ -58,5 +65,18 @@ export class NavComponent implements OnInit {
         this.toastr.error(err.error.message);
       }
     })
+  }
+  getAllCategory() {
+    this.categoryService.getCategories()
+      .pipe(
+        retry(3)
+      )
+      .subscribe(categories => {
+        if (categories) {
+          this.categories = categories
+        } else {
+          this.categories = []
+        }
+      })
   }
 }
