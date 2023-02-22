@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators'
 import { IProduct } from '../../models/Product'
 import { ActivatedRoute } from '@angular/router'
@@ -8,18 +8,20 @@ import { CategoryService } from './../../services/category.service'
   template: `<h2>
   Category: {{categoryName}}
 </h2>
-<app-products [btnMoreActive]="btnMoreActive" [products]="products"  (loadMore)="onLoadMore()" />
+<app-products [btnMoreActive]="btnMoreActive" [productId]="productId" [products]="products"  (loadMore)="onLoadMore()" />
 `,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  products: IProduct[] = [];
+
+  products: IProduct[] = []
+  productId: string | null = null
   categoryName: string = ""
   limit: number = 10;
   offset: number = 0;
   btnMoreActive: boolean = true
   countProducts: number = 10
-  categoryId: string | null = null;
+  categoryId: string | null = null
 
   constructor (private route: ActivatedRoute, private categoryService: CategoryService) { }
   ngOnInit(): void {
@@ -46,6 +48,9 @@ export class CategoryComponent implements OnInit {
           this.btnMoreActive = false
         }
       })
+    this.route.queryParamMap.subscribe(params => {
+      this.productId = params.get('product')
+    })
   }
   onLoadMore() {
     this.categoryService.getCategoryByPage(this.limit, this.offset, this.categoryId)

@@ -1,5 +1,7 @@
 <div class="product">
-  <app-img [img]="product.images[0]"></app-img>
+  <a [routerLink]="['/product/', product.id]">
+    <app-img [img]="product.images[0]"></app-img>
+  </a>
   <h2>{{ product.title }}</h2>
   <p class="date">Product public {{ date | timeAgo }}</p>
   <p class="price">${{ product.price }}</p>
@@ -7,6 +9,6 @@
     {{ product.taxes | currency : "COP" }}
   </p>
   <!-- <button (click)="onShowDetail()">Detail</button> -->
-  <a [routerLink]="['/product/', product.id]">Detail Product</a>
+  <a routerLink="." [queryParams]="{ product: product.id }">Detail</a>
   <button (click)="onAddToCart()">Add cart</button>
 </div>

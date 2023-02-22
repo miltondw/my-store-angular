@@ -16,7 +16,20 @@
   <app-product
     [product]="product"
     *ngFor="let product of products"
+    (showDetail)="onShowDetail($event)"
     (addedProduct)="onAddToShoppingCart($event)"
   ></app-product>
   <button *ngIf="btnMoreActive" (click)="onLoadMore()">Load More</button>
+</div>
+<div [class.detailActive]="detailActive" class="detail">
+  <button class="closed" (click)="toggleDetail()">X</button>
+  <div class="detail-product">
+    <app-img [img]="productDetail.images[0]"></app-img>
+    <h2>{{ productDetail.title }}</h2>
+    <p>${{ productDetail.price }}</p>
+    <p>{{ productDetail.description }}</p>
+    <p>{{ productDetail.category.name }}</p>
+    <button (click)="updateProduct()">Edit</button>
+    <button (click)="deleteProduct()">Delete</button>
+  </div>
 </div>
