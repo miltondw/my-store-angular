@@ -6,6 +6,7 @@
   <p class="price" *ngIf="product.taxes">
     {{ product.taxes | currency : "COP" }}
   </p>
-  <button (click)="onShowDetail()">Detail</button>
+  <!-- <button (click)="onShowDetail()">Detail</button> -->
+  <a [routerLink]="['/product/', product.id]">Detail Product</a>
   <button (click)="onAddToCart()">Add cart</button>
 </div>

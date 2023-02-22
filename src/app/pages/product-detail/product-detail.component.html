@@ -1,0 +1,12 @@
+<div class="detail">
+  <div>
+    <button (click)="goToBack()">Back</button>
+    <app-img [img]="product.images[0]"></app-img>
+    <h2>{{ product.title }}</h2>
+    <p>${{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.category.name }}</p>
+    <button (click)="updateProduct()">Edit</button>
+    <button (click)="deleteProduct()">Delete</button>
+  </div>
+</div>

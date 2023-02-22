@@ -18,15 +18,15 @@ export class ProductComponent {
     },
     "images": [],
   }
-  @Output() showDetail = new EventEmitter<number>()
-  detailActive = false
+  // @Output() showDetail = new EventEmitter<number>()
+  // detailActive = false
   @Output() addedProduct = new EventEmitter<IProduct>();
   onAddToCart() {
     this.addedProduct.emit(this.product);
   }
-  onShowDetail() {
-    this.detailActive = !this.detailActive
-    this.showDetail.emit(this.product.id)
-  }
+  // onShowDetail() {
+  //   this.detailActive = !this.detailActive
+  //   this.showDetail.emit(this.product.id)
+  // }
   date = new Date('1/02/2023')
 }
