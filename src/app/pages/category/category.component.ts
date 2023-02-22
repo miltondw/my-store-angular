@@ -5,7 +5,11 @@ import { ActivatedRoute } from '@angular/router'
 import { CategoryService } from './../../services/category.service'
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
+  template: `<h2>
+  Category: {{categoryName}}
+</h2>
+<app-products [btnMoreActive]="btnMoreActive" [products]="products"  (loadMore)="onLoadMore()" />
+`,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
