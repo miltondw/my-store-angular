@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebsiteRoutingModule } from './website-routing.module';
 import { SharedModule } from '../shared/shared.module'
+import { QuicklinkModule } from 'ngx-quicklink'
+
 //Components
 import { NavComponent } from './components/nav/nav.component'
 import { LayoutComponent } from './components/layout/layout.component';
@@ -29,7 +31,8 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
   imports: [
     CommonModule,
     WebsiteRoutingModule,
-    SharedModule
+    SharedModule,
+    QuicklinkModule
   ]
 })
 export class WebsiteModule { }
