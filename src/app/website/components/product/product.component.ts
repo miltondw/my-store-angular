@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IProduct } from '../../models/Product'
+import { IProduct } from '../../../models/Product'
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',

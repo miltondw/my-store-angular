@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators'
-import { IProduct } from '../../models/Product'
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { CategoryService } from './../../services/category.service'
+import { switchMap } from 'rxjs/operators'
+import { IProduct } from './../../../models/Product'
+import { CategoryService } from './../../../services/category.service'
 @Component({
   selector: 'app-category',
   template: `<h2>

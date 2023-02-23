@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from './../../models/User';
-import { ICategory } from './../../models/Product';
-import { StoreService } from '../../services/store.service'
-import { AuthService } from '../../services/auth.service'
-import { CategoryService } from '../../services/category.service'
+import { IUser } from '../../../models/User';
+import { ICategory } from '../../../models/Product';
+import { StoreService } from '../../../services/store.service'
+import { AuthService } from '../../../services/auth.service'
+import { CategoryService } from '../../../services/category.service'
 import { ToastrService } from 'ngx-toastr';
 import { retry } from 'rxjs/operators'
 

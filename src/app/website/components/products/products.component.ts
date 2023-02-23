@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 //services
 import { ToastrService } from 'ngx-toastr';
-import { ProductsService } from '../../services/products.service'
-import { UsersService } from '../../services/users.service'
+import { ProductsService } from '../../../services/products.service'
+import { UsersService } from '../../../services/users.service'
 // import { FilesService } from '../../services/files.service'
-import { StoreService } from '../../services/store.service'
+import { StoreService } from '../../../services/store.service'
 //Models
-import { IProduct, ICreateProductDTO, ILoadMore } from '../../models/Product'
-import { IUser, ICreateUserDTO } from './../../models/User';
+import { IProduct, ICreateProductDTO, ILoadMore } from '../../../models/Product'
+import { IUser, ICreateUserDTO } from '../../../models/User';
 // import { IFileImg } from './../../models/File';
 
 
