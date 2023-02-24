@@ -143,7 +143,7 @@ export class ProductsComponent implements OnInit {
   //   const file = {
   //     name: "my.pdf",
   //     type: "application/pdf",
-  //     url: "https://young-sands-07814.herokuapp.com/api/files/dummy.pdf"
+  //     url: "https://damp-spire-59848.herokuapp.com/api/files/dummy.pdf"
   //   }
   //   this.filesService.getFile(file).subscribe((res) => console.log(res))
   // }

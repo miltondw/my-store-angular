@@ -7,6 +7,7 @@ import { CategoryService } from '../../../services/category.service'
 import { UsersService } from '../../../services/users.service'
 import { ToastrService } from 'ngx-toastr';
 import { retry } from 'rxjs/operators'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-nav',
@@ -25,6 +26,7 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService,
     private categoryService: CategoryService,
     private usersService: UsersService,
+    private router: Router,
   ) {
 
   }
@@ -38,10 +40,11 @@ export class NavComponent implements OnInit {
     });
     this.getAllCategory()
 
-    if (!this.user) this.createUser()
+    // if (!this.user) this.createUser()
     this.authService.user$.subscribe(
       (user) => {
         this.profile = user
+        this.user = user
       }
     )
   }
@@ -54,20 +57,27 @@ export class NavComponent implements OnInit {
       email: "chirly@estrada.com",
       name: "chirly",
       password: "milton",
+      role: 'admin'
     }
     this.usersService.create(newUser).subscribe({
       next: (data) => {
         this.user = data
         this.profileUser = {
           password: this.user.password,
-          email: this.user.email
+          email: this.user.email,
         }
       }
     })
   }
   loginAndGetProfile() {
-    this.authService.loginAndProfile(this.profileUser).subscribe({
-      next: () => {
+    const userAdmin = {
+      email: "admin@mail.com",
+      password: "admin123"
+    }
+    this.authService.loginAndProfile(userAdmin).subscribe({
+      next: (data) => {
+        this.profile = data
+        this.router.navigate(['/profile'])
         this.toastr.success('Login success');
       },
       error: (err) => {

@@ -40,7 +40,9 @@ export class AuthService {
     return this.http.get<IUser>(`${this.url2}/profile`, {
       context: checkToken()
     }).pipe(
-      tap((user) => this.user.next(user))
+      tap((user) => {
+        return this.user.next(user)
+      })
     )
     // , {
     //   headers: {
