@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../../../models/User';
+import { IUser, ICreateUserDTO } from '../../../models/User';
 import { ICategory } from '../../../models/Product';
 import { StoreService } from '../../../services/store.service'
 import { AuthService } from '../../../services/auth.service'
 import { CategoryService } from '../../../services/category.service'
+import { UsersService } from '../../../services/users.service'
 import { ToastrService } from 'ngx-toastr';
 import { retry } from 'rxjs/operators'
 
@@ -16,26 +17,28 @@ export class NavComponent implements OnInit {
   categories: ICategory[] = []
   activeMenu = false;
   counter = 0;
-  profile: IUser = {
-    email: "",
-    name: "",
-    id: 0,
-    password: ""
-  };
+  profile: IUser | null = null;
+  user: IUser | null = null;
   constructor (
     private storeService: StoreService,
     private authService: AuthService,
     private toastr: ToastrService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private usersService: UsersService,
   ) {
 
   }
-
+  profileUser = {
+    email: '',
+    password: ''
+  }
   ngOnInit(): void {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length;
     });
     this.getAllCategory()
+
+    if (!this.user) this.createUser()
   }
 
   toggleMenu() {
@@ -51,12 +54,24 @@ export class NavComponent implements OnInit {
       }
     })
   }
-  loginAndProfile() {
-    const user = {
-      email: "john@mail.com",
-      password: "changeme"
+  createUser() {
+    const newUser: ICreateUserDTO = {
+      email: "chirly@estrada.com",
+      name: "chirly",
+      password: "milton",
     }
-    this.authService.loginAndProfile(user).subscribe({
+    this.usersService.create(newUser).subscribe({
+      next: (data) => {
+        this.user = data
+        this.profileUser = {
+          password: this.user.password,
+          email: this.user.email
+        }
+      }
+    })
+  }
+  loginAndProfile() {
+    this.authService.loginAndProfile(this.profileUser).subscribe({
       next: (data) => {
         this.profile = data
         this.toastr.success('Login success');

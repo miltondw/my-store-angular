@@ -7,7 +7,7 @@ import { UsersService } from '../../../services/users.service'
 import { StoreService } from '../../../services/store.service'
 //Models
 import { IProduct, ICreateProductDTO, ILoadMore } from '../../../models/Product'
-import { IUser, ICreateUserDTO } from '../../../models/User';
+import { IUser } from '../../../models/User';
 // import { IFileImg } from './../../models/File';
 
 
@@ -78,18 +78,7 @@ export class ProductsComponent implements OnInit {
       })
   }
 
-  createUser() {
-    const newUser: ICreateUserDTO = {
-      email: "chirly@estrada.com",
-      name: "chirly",
-      password: "milton"
-    }
-    this.usersService.create(newUser).subscribe({
-      next: (data) => {
-        this.users.unshift(data)
-      }
-    })
-  }
+
 
   ngOnInit(): void {
     //Users

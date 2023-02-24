@@ -4,6 +4,7 @@ export interface IUser {
   name: string
   password: string
   email: string
+  role?: 'costumer' | 'admin'
 }
 
 export interface ICreateUserDTO extends Omit<IUser, 'id'> { }

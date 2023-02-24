@@ -41,11 +41,15 @@
       </ul>
     </nav>
     <div class="info">
-      <ng-container *ngIf="!profile.email; else profileContent">
+      <ng-container *ngIf="!profile; else profileContent">
         <button (click)="loginAndProfile()">Login</button>
       </ng-container>
       <ng-template #profileContent>
-        <div class="account">{{ profile.email }}</div>
+        <div class="account">
+          <a [routerLink]="['/profile']" routerLinkActive="active">{{
+            profile?.email
+          }}</a>
+        </div>
       </ng-template>
       <div class="cart">
         <a [routerLink]="'home'">
