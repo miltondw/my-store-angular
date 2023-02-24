@@ -39,20 +39,15 @@ export class NavComponent implements OnInit {
     this.getAllCategory()
 
     if (!this.user) this.createUser()
+    this.authService.user$.subscribe(
+      (user) => {
+        this.profile = user
+      }
+    )
   }
 
   toggleMenu() {
     this.activeMenu = !this.activeMenu;
-  }
-  getProfile() {
-    this.authService.profile().subscribe({
-      next: () => {
-        this.toastr.success('Login success');
-      },
-      error: (err) => {
-        this.toastr.error(err.error.message);
-      }
-    })
   }
   createUser() {
     const newUser: ICreateUserDTO = {
@@ -70,16 +65,19 @@ export class NavComponent implements OnInit {
       }
     })
   }
-  loginAndProfile() {
+  loginAndGetProfile() {
     this.authService.loginAndProfile(this.profileUser).subscribe({
-      next: (data) => {
-        this.profile = data
+      next: () => {
         this.toastr.success('Login success');
       },
       error: (err) => {
         this.toastr.error(err.error.message);
       }
     })
+  }
+  logout() {
+    this.authService.logout()
+    this.profile = null
   }
   getAllCategory() {
     this.categoryService.getCategories()

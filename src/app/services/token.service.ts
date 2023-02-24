@@ -13,4 +13,7 @@ export class TokenService {
     const token = sessionStorage.getItem('token')
     return token
   }
+  deleteToken() {
+    sessionStorage.removeItem('token')
+  }
 }

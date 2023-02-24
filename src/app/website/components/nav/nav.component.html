@@ -42,13 +42,14 @@
     </nav>
     <div class="info">
       <ng-container *ngIf="!profile; else profileContent">
-        <button (click)="loginAndProfile()">Login</button>
+        <button (click)="loginAndGetProfile()">Login</button>
       </ng-container>
       <ng-template #profileContent>
         <div class="account">
           <a [routerLink]="['/profile']" routerLinkActive="active">{{
             profile?.email
           }}</a>
+          <button (click)="logout()">Logout</button>
         </div>
       </ng-template>
       <div class="cart">
