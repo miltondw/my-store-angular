@@ -3,10 +3,12 @@
     <h3>Title</h3>
   </header>
   <nav>
-    <ul>
-      <li><a routerLink="grid">Grid Page</a></li>
-      <li><a routerLink="tasks">Tasks Page</a></li>
-    </ul>
+    <mat-list>
+      <mat-list-item *ngFor="let item of items">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <a matListItemTitle [routerLink]="item.link">{{ item.name }}</a>
+      </mat-list-item>
+    </mat-list>
   </nav>
   <main>
     <router-outlet></router-outlet>
