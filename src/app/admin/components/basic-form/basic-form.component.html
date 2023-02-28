@@ -2,9 +2,7 @@
   <mat-label>Name</mat-label>
   <input [formControl]="nameField" matInput placeholder="Your Name" />
   <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  <!-- <mat-hint>Hint</mat-hint> -->
 </mat-form-field>
-<button mat-raised-button color="primary" (click)="getName()">Click Me!</button>
 
 <mat-form-field appearance="fill">
   <mat-label>categories</mat-label>
@@ -33,3 +31,23 @@
     </mat-list-item>
   </mat-list>
 </div>
+<div [formGroup]="myGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Phone number</mat-label>
+    <!-- <example-tel-input formControlName="'phone'" required></example-tel-input> -->
+    <input matInput [formControlName]="'phone'" type="tel" required />
+    <mat-icon matSuffix>phone</mat-icon>
+    <mat-error *ngIf="myGroup.get('phone')?.invalid">{{
+      getErrorMessage()
+    }}</mat-error>
+    <mat-hint>Include area code</mat-hint>
+  </mat-form-field>
+</div>
+<button
+  [disabled]="myGroup.invalid"
+  mat-raised-button
+  color="primary"
+  (click)="getName()"
+>
+  Click Me!
+</button>
