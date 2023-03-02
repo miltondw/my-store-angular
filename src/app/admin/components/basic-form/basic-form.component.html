@@ -1,53 +1,52 @@
-<mat-form-field appearance="fill">
-  <mat-label>Name</mat-label>
-  <input [formControl]="nameField" matInput placeholder="Your Name" />
-  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-</mat-form-field>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input formControlName="name" matInput placeholder="Your Name" />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error
+      *ngIf="invalidValue('name')"
+      >{{ getErrorMessage("name") }}</mat-error
+    >
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>categories</mat-label>
-  <mat-select [formControl]="categories" multiple>
-    <mat-select-trigger>
-      {{categories.value?.[0] || ''}}
-      <span
-        *ngIf="(categories.value?.length || 0) > 1"
-        class="example-additional-selection"
-      >
-        (+{{ (categories.value?.length || 0) - 1 }}
-        {{ categories.value?.length === 2 ? "other" : "others" }})
-      </span>
-    </mat-select-trigger>
-    <mat-option *ngFor="let category of categoriesList" [value]="category">{{
-      category
-    }}</mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>categories</mat-label>
+    <mat-select formControlName="categories" multiple>
+      <mat-select-trigger>
+        {{categories?.value?.[0] || ''}}
+        <span
+          *ngIf="(categories?.value?.length || 0) > 1"
+          class="example-additional-selection"
+        >
+          (+{{ (categories?.value?.length || 0) - 1 }}
+          {{ categories?.value?.length === 2 ? "other" : "others" }})
+        </span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let category of categoriesList" [value]="category">{{
+        category
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<div *ngIf="(categories.value?.length || 0) > 1">
-  <h3>List from categories</h3>
-  <mat-list>
-    <mat-list-item *ngFor="let item of categories.value">
-      <div matListItemTitle>{{ item }}</div>
-    </mat-list-item>
-  </mat-list>
-</div>
-<div [formGroup]="myGroup">
+  <div *ngIf="(categories?.value?.length || 0) > 1">
+    <h3>List from categories</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let item of categories?.value">
+        <div matListItemTitle>{{ item }}</div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
   <mat-form-field appearance="fill">
     <mat-label>Phone number</mat-label>
-    <!-- <example-tel-input formControlName="'phone'" required></example-tel-input> -->
-    <input matInput [formControlName]="'phone'" type="tel" required />
+    <input matInput formControlName="phone" type="tel" required />
     <mat-icon matSuffix>phone</mat-icon>
-    <mat-error *ngIf="myGroup.get('phone')?.invalid">{{
-      getErrorMessage()
-    }}</mat-error>
+    <mat-error
+      *ngIf="invalidValue('phone')"
+      >{{ getErrorMessage("phone") }}</mat-error
+    >
     <mat-hint>Include area code</mat-hint>
   </mat-form-field>
-</div>
-<button
-  [disabled]="myGroup.invalid"
-  mat-raised-button
-  color="primary"
-  (click)="getName()"
->
-  Click Me!
-</button>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>
