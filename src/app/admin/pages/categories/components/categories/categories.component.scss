@@ -1,0 +1,11 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2rem;
+    a{
+      background: #3e51b5;
+      color: #fff;
+      display: flex;
+      place-content: end;
+    }
+}
