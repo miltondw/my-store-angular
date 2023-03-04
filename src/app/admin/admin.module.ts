@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
-
+import { MatRadioModule } from '@angular/material/radio';
 //Pages
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
@@ -37,7 +37,8 @@ import { BasicFormComponent } from './components/basic-form/basic-form.component
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    MatSliderModule
+    MatSliderModule,
+    MatRadioModule
   ]
 })
 export class AdminModule { }

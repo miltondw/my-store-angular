@@ -68,25 +68,53 @@
     }}</mat-error>
     <mat-hint>Include area code</mat-hint>
   </mat-form-field>
-  <!-- <mat-slider thumbLabel tickInterval="10" [formControlName]="'rangePriceMin'" ></mat-slider> -->
 
-<label for="rangePriceMin">
-  Price Gange min is 10$
-   <mat-icon matSuffix>price_change</mat-icon>
-  <input name="rangePriceMin" formControlName="rangePriceMin" min="0" max="100" type="range" required />
-  {{rangePriceMin?.value}}$
-  <mat-error *ngIf="validValue({ forName: 'rangePriceMin' })">{{
-    getErrorMessage({ forName: "rangePriceMin" })
-  }}</mat-error>
-</label>
-<label for="rangePriceMax">
-  Price Gange max is 100$
-   <mat-icon matSuffix>price_change</mat-icon>
-  <input formControlName="rangePriceMax" min="0" max="200" type="range"  required />
-  {{rangePriceMax?.value}}$
-  <mat-error *ngIf="validValue({ forName: 'rangePriceMax' })">{{
+  <label for="rangePriceMin">
+    Price Gange min is 10$
+    <mat-icon matSuffix>price_change</mat-icon>
+    <input
+      name="rangePriceMin"
+      formControlName="rangePriceMin"
+      min="0"
+      max="100"
+      type="range"
+      required
+    />
+    {{ rangePriceMin?.value }}$
+    <mat-error *ngIf="validValue({ forName: 'rangePriceMin' })">{{
+      getErrorMessage({ forName: "rangePriceMin" })
+    }}</mat-error>
+  </label>
+  <label for="rangePriceMax">
+    Price Gange max is 100$
+    <mat-icon matSuffix>price_change</mat-icon>
+    <input
+      formControlName="rangePriceMax"
+      min="0"
+      max="200"
+      type="range"
+      required
+    />
+    {{ rangePriceMax?.value }}$
+    <mat-error *ngIf="validValue({ forName: 'rangePriceMax' })">{{
       getErrorMessage({ forName: "rangePriceMax" })
     }}</mat-error>
-</label>
+  </label>
+  <mat-radio-group formControlName="typeUser">
+    <mat-radio-button value="company">Company</mat-radio-button>
+    <mat-radio-button value="costumer">Costumer</mat-radio-button>
+    <mat-error *ngIf="validValue({ forName: 'typeUser' })">{{
+      getErrorMessage({ forName: "typeUser" })
+    }}</mat-error>
+  </mat-radio-group>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Company Name</mat-label>
+    <input matInput formControlName="companyName" type="text" />
+    <mat-icon matSuffix>company</mat-icon>
+    <mat-error *ngIf="validValue({ forName: 'companyName' })">{{
+      getErrorMessage({ forName: "companyName" })
+    }}</mat-error>
+  </mat-form-field>
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>
