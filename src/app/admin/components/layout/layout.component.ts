@@ -24,5 +24,10 @@ export class LayoutComponent {
       link: "form-basic",
       icon: "category"
     },
+    {
+      name: "Categories",
+      link: "categories",
+      icon: "category"
+    },
   ]
 }

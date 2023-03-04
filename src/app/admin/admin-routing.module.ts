@@ -27,6 +27,14 @@ const routes: Routes = [
         path: 'form-basic',
         component: BasicFormComponent,
       },
+      {
+        path: 'categories',
+        loadChildren: () => import('./pages/categories/categories.module')
+        .then(c => c.CategoriesModule),
+        data: {
+          preload: true
+        }
+      }
     ]
   }
 ];
