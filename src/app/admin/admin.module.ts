@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 
 //Pages
 import { TasksComponent } from './pages/tasks/tasks.component';
@@ -35,7 +36,8 @@ import { BasicFormComponent } from './components/basic-form/basic-form.component
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSliderModule
   ]
 })
 export class AdminModule { }

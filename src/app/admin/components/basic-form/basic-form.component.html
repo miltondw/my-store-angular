@@ -1,12 +1,34 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div formGroupName="fullName" class="fullName">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput placeholder="Your Name" />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-error *ngIf="validValue({ group: 'fullName', forName: 'name' })">{{
+        getErrorMessage({ group: "fullName", forName: "name" })
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input formControlName="last" matInput placeholder="Your Last Name" />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-error *ngIf="validValue({ group: 'fullName', forName: 'last' })">{{
+        getErrorMessage({ group: "fullName", forName: "last" })
+      }}</mat-error>
+    </mat-form-field>
+  </div>
   <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input formControlName="name" matInput placeholder="Your Name" />
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-error
-      *ngIf="invalidValue('name')"
-      >{{ getErrorMessage("name") }}</mat-error
-    >
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      type="email"
+      formControlName="email"
+      required
+    />
+    <mat-error *ngIf="validValue({ forName: 'email' })">{{
+      getErrorMessage({ forName: "email" })
+    }}</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -41,12 +63,30 @@
     <mat-label>Phone number</mat-label>
     <input matInput formControlName="phone" type="tel" required />
     <mat-icon matSuffix>phone</mat-icon>
-    <mat-error
-      *ngIf="invalidValue('phone')"
-      >{{ getErrorMessage("phone") }}</mat-error
-    >
+    <mat-error *ngIf="validValue({ forName: 'phone' })">{{
+      getErrorMessage({ forName: "phone" })
+    }}</mat-error>
     <mat-hint>Include area code</mat-hint>
   </mat-form-field>
+  <!-- <mat-slider thumbLabel tickInterval="10" [formControlName]="'rangePriceMin'" ></mat-slider> -->
 
+<label for="rangePriceMin">
+  Price Gange min is 10$
+   <mat-icon matSuffix>price_change</mat-icon>
+  <input name="rangePriceMin" formControlName="rangePriceMin" min="0" max="100" type="range" required />
+  {{rangePriceMin?.value}}$
+  <mat-error *ngIf="validValue({ forName: 'rangePriceMin' })">{{
+    getErrorMessage({ forName: "rangePriceMin" })
+  }}</mat-error>
+</label>
+<label for="rangePriceMax">
+  Price Gange max is 100$
+   <mat-icon matSuffix>price_change</mat-icon>
+  <input formControlName="rangePriceMax" min="0" max="200" type="range"  required />
+  {{rangePriceMax?.value}}$
+  <mat-error *ngIf="validValue({ forName: 'rangePriceMax' })">{{
+      getErrorMessage({ forName: "rangePriceMax" })
+    }}</mat-error>
+</label>
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

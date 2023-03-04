@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ICreateUserDTO } from '../../../models/User';
-import { ICategory } from '../../../models/Product';
-import { StoreService } from '../../../services/store.service'
-import { AuthService } from '../../../services/auth.service'
-import { CategoryService } from '../../../services/category.service'
-import { UsersService } from '../../../services/users.service'
+import { IUser, ICreateUserDTO } from '@app/models/User';
+import { ICategory } from '@app/models/Product';
+import { StoreService } from '@app/services/store.service'
+import { AuthService } from '@app/services/auth.service'
+import { CategoryService } from '@app/services/category.service'
+import { UsersService } from '@app/services/users.service'
 import { ToastrService } from 'ngx-toastr';
 import { retry } from 'rxjs/operators'
 import { Router } from '@angular/router'
