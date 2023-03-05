@@ -9,7 +9,7 @@ import { checkTime } from './../interceptors/time.interceptor'
   providedIn: 'root'
 })
 export class ProductsService {
-  private url2: string = `${environment.API_URL}/api/products/`
+  private url2: string = `${environment.API_URL}/products/`
   // private url1:string = "https://api.escuelajs.co/api/v1/products"
   constructor (
     private http: HttpClient

@@ -1,7 +1,7 @@
 export interface ICategory {
   id: number,
   name: string,
-  typeImg: any
+  image: string
 }
 export interface IProduct {
   id: number
@@ -19,6 +19,8 @@ export interface ILoadMore {
 
 export interface ICreateProductDTO extends Omit<IProduct, 'id' | 'category'> {
   categoryId: number
+}
+export interface ICreateCategoryDTO extends Omit<ICategory, 'id'> {
 }
 
 export interface IUpdateProductDTO extends Partial<ICreateProductDTO> { }

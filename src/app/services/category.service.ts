@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http'
 import { environment } from './../../environments/environment'
-import { IProduct, ICategory } from '../models/Product'
+import { IProduct, ICategory,ICreateCategoryDTO } from '../models/Product'
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators'
 
@@ -10,7 +10,7 @@ import { catchError, retry } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CategoryService {
-  private url: string = `${environment.API_URL}/api/categories`
+  private url: string = `${environment.API_URL}/categories`
   constructor (
     private http: HttpClient
   ) { }
@@ -41,5 +41,14 @@ export class CategoryService {
     return this.http.get<ICategory[]>(this.url).pipe(
       retry(3)
     )
+  }
+  create(dto: ICreateCategoryDTO) {
+    return this.http.post<ICategory>(this.url, dto)
+  }
+  update(id: number, dto: ICreateCategoryDTO) {
+    return this.http.put<ICategory>(this.url + id, dto)
+  }
+  delete(id: number) {
+    return this.http.delete(this.url + id)
   }
 }

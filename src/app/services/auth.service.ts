@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private url2: string = `${environment.API_URL}/api/auth`
+  private url2: string = `${environment.API_URL}/auth`
 
   private user = new BehaviorSubject<IUser | null>(null);
   user$ = this.user.asObservable();
