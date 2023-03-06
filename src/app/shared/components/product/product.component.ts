@@ -14,7 +14,7 @@ export class ProductComponent {
     "category": {
       id: 0,
       name: "category",
-      typeImg: ""
+      image: ""
     },
     "images": [],
   }

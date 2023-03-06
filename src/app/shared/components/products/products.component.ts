@@ -43,7 +43,7 @@ export class ProductsComponent implements OnInit {
     "category": {
       id: 0,
       name: "category",
-      typeImg: ""
+      image: ""
     },
     "images": []
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ICategory } from '@app/models/Product';
 import { CategoryService } from '@app/services/category.service'
 
@@ -8,15 +8,18 @@ import { CategoryService } from '@app/services/category.service'
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'typeImg','update','delete'];
+  displayedColumns: string[] = ['id', 'name', 'image','update','delete'];
   dataSource:ICategory[] =[];
+
+
   constructor (private categoryService: CategoryService) { }
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(data => {
+    this.categoryService.getCategories()
+    .subscribe(data => {
       this.dataSource = data
-      console.log(this.dataSource)
     })
   }
+
   deleteCategory(id:number){
     console.log(id)
   }
