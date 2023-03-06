@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICategory } from '@app/models/Product';
 import { CategoryService } from '@app/services/category.service'
 
@@ -21,9 +21,11 @@ export class CategoriesComponent implements OnInit {
   }
 
   deleteCategory(id:number){
-    console.log(id)
-  }
-  updateCategory(id:number){
-    console.log(id)
+    this.categoryService.delete(id).subscribe(() => {
+      this.categoryService.getCategories()
+      .subscribe(data => {
+        this.dataSource = data
+      })
+    })
   }
 }

@@ -25,14 +25,9 @@
   <ng-container matColumnDef="update">
     <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
     <mat-cell *matCellDef="let element">
-      <button
-        mat-button
-        color="primary"
-        (click)="updateCategory(element.id)"
-        aria-label="icon button wia delete icon"
-      >
+      <a mat-stroked-button color="primary" [routerLink]="['edit',element.id]">
         <mat-icon>edit</mat-icon>
-      </button>
+      </a>
     </mat-cell>
   </ng-container>
 

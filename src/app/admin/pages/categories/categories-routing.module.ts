@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path:'create',
     component:FormCategoriesComponent
+  },
+  {
+    path:'edit/:id',
+    component:FormCategoriesComponent
   }
 ];
 

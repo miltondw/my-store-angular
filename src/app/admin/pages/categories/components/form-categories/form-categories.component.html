@@ -1,39 +1,61 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Category</mat-card-title>
+      <mat-card-title>{{ categoryId ? "Update" : "Create" }} Category</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="row">
-          <div class="col-xs">
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input placeholder="Name" formControlName="name" matInput type="text">
-              <div class="messages" *ngIf="nameField?.touched && nameField?.invalid">
-                <mat-error *ngIf="nameField?.hasError('required')">
-                 Your Name is required
-                </mat-error>
-              </div>
-            </mat-form-field>
-          </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input
+              [value]="category?.name"
+              placeholder="Name"
+              formControlName="name"
+              matInput
+              type="text"
+            />
+            <div class="messages" *ngIf="validValues('name')">
+              <mat-error *ngIf="nameField?.hasError('required')">
+                Your Name is required
+              </mat-error>
+            </div>
+          </mat-form-field>
         </div>
-        <div class="row">
-          <div class="col-xs">
-            <mat-form-field>
-              <mat-label>Image</mat-label>
-              <input placeholder="Image" formControlName="image" matInput type="text">
-              <div class="messages" *ngIf="imageField?.touched && imageField?.invalid">
-                <mat-error *ngIf="imageField?.hasError('required')">
-                  The image is required
-                </mat-error>
-              </div>
-            </mat-form-field>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input
+              [value]="category?.image"
+              placeholder="Image"
+              formControlName="image"
+              matInput
+              type="text"
+            />
+            <div class="messages" *ngIf="validValues('image')">
+              <mat-error *ngIf="imageField?.hasError('required')">
+                The image is required
+              </mat-error>
+            </div>
+          </mat-form-field>
+          <img
+            [src]="imageField?.value"
+            [alt]="nameField?.value"
+            *ngIf="categoryId"
+            width="70"
+            style="object-fit: contain"
+            height="70"
+          />
+          <mat-hint>example: <i>https://picsum.photos/200</i></mat-hint>
         </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit">Save category</button>
+      <button mat-raised-button type="submit">
+        {{ categoryId ? "Update" : "Create" }} category
+      </button>
     </mat-card-actions>
   </mat-card>
-
 </form>

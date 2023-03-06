@@ -42,13 +42,16 @@ export class CategoryService {
       retry(3)
     )
   }
+  getCategory(id:string|number){
+    return this.http.get<ICategory>(`${this.url}/${id}`)
+  }
   create(dto: ICreateCategoryDTO) {
     return this.http.post<ICategory>(this.url, dto)
   }
   update(id: number, dto: ICreateCategoryDTO) {
-    return this.http.put<ICategory>(this.url + id, dto)
+    return this.http.put<ICategory>(`${this.url}/${id}`, dto)
   }
   delete(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(`${this.url}/${id}`)
   }
 }
