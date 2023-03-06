@@ -13,8 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
 //Pages
-import { TasksComponent } from './pages/tasks/tasks.component';
-import { GridComponent } from './pages/grid/grid.component';
+
 //Componentes
 import { LayoutComponent } from './components/layout/layout.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
@@ -22,8 +21,6 @@ import { BasicFormComponent } from './components/basic-form/basic-form.component
 
 @NgModule({
   declarations: [
-    TasksComponent,
-    GridComponent,
     LayoutComponent,
     BasicFormComponent
   ],

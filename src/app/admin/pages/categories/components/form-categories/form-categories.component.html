@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{ categoryId ? "Update" : "Create" }} Category</mat-card-title>
+      <mat-card-title>{{ !isNew ? "Update" : "Create" }} Category</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -9,7 +9,6 @@
           <mat-form-field>
             <mat-label>Name</mat-label>
             <input
-              [value]="category?.name"
               placeholder="Name"
               formControlName="name"
               matInput
@@ -28,7 +27,6 @@
           <mat-form-field>
             <mat-label>Image</mat-label>
             <input
-              [value]="category?.image"
               placeholder="Image"
               formControlName="image"
               matInput
@@ -43,7 +41,7 @@
           <img
             [src]="imageField?.value"
             [alt]="nameField?.value"
-            *ngIf="categoryId"
+            *ngIf="!isNew"
             width="70"
             style="object-fit: contain"
             height="70"
@@ -54,7 +52,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button type="submit">
-        {{ categoryId ? "Update" : "Create" }} category
+        {{ !isNew ? "Update" : "Create" }} category
       </button>
     </mat-card-actions>
   </mat-card>

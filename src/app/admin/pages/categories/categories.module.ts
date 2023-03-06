@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { CategoriesRoutingModule } from './categories-routing.module';
-import { ReactiveFormsModule } from '@angular/forms'
 
 //Material
 import { MatTableModule } from '@angular/material/table';
@@ -17,13 +17,17 @@ import { MatInputModule } from '@angular/material/input';
 //Components
 import { CategoriesComponent } from './components/categories/categories.component';
 import { FormCategoriesComponent } from './components/form-categories/form-categories.component';
+import { SmartFormCategoriesComponent } from './containers/smart-form-categories/smart-form-categories.component';
+import { SmartCategoriesComponent } from './containers/smart-categories/smart-categories.component';
 
 
 
 @NgModule({
   declarations: [
     CategoriesComponent,
-    FormCategoriesComponent
+    FormCategoriesComponent,
+    SmartFormCategoriesComponent,
+    SmartCategoriesComponent
   ],
   imports: [
     CommonModule,

@@ -14,12 +14,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 //Interceptors
 import { TimeInterceptor } from './interceptors/time.interceptor'
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ProductsComponent } from './app/admin/pages/products/products.component';
+import { DashboardComponent } from './app/admin/pages/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ProductsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

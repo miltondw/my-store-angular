@@ -10,13 +10,13 @@ export class LayoutComponent {
 
   items: IItems[] = [
     {
-      name: "Grid Page",
-      link: "grid",
+      name: "Dashboard",
+      link: "dashboard",
       icon: "category"
     },
     {
-      name: "Tasks Page",
-      link: "tasks",
+      name: "Products",
+      link: "products",
       icon: "category"
     },
     {
