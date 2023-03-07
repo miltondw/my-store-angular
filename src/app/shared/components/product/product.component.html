@@ -1,14 +1,19 @@
-<div class="product">
-  <a [routerLink]="['/product/', product.id]">
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+    <mat-card-subtitle>Public {{ date | timeAgo }}</mat-card-subtitle>
+  </mat-card-header>
+  <a mat-card-image [routerLink]="['/product/', product.id]">
     <app-img [img]="product.images[0]"></app-img>
   </a>
-  <h2>{{ product.title }}</h2>
-  <p class="date">Product public {{ date | timeAgo }}</p>
-  <p class="price">${{ product.price }}</p>
-  <p class="price" *ngIf="product.taxes">
-    {{ product.taxes | currency : "COP" }}
-  </p>
-  <!-- <button (click)="onShowDetail()">Detail</button> -->
-  <a routerLink="." [queryParams]="{ product: product.id }">Detail</a>
-  <button (click)="onAddToCart()">Add cart</button>
-</div>
+  <mat-card-content>
+    <p class="price">${{ product.price }}</p>
+    <p class="price" *ngIf="product.taxes">
+      {{ product.taxes | currency : "COP" }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button routerLink="." [queryParams]="{ product: product.id }">Detail</a>
+    <button mat-flat-button color="primary" (click)="onAddToCart()">Add cart</button>
+  </mat-card-actions>
+</mat-card>

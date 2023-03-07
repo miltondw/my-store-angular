@@ -42,14 +42,19 @@
     </nav>
     <div class="info">
       <ng-container *ngIf="!profile; else profileContent">
-        <button (click)="loginAndGetProfile()">Login</button>
+        <button mat-flat-button color="primary" (click)="loginAndGetProfile()">
+          Login
+        </button>
       </ng-container>
       <ng-template #profileContent>
         <div class="account">
-          <a [routerLink]="['/profile']" routerLinkActive="active">{{
-            profile?.email
-          }}</a>
-          <button (click)="logout()">Logout</button>
+          <a
+            mat-stroked-button
+            [routerLink]="['/profile']"
+            routerLinkActive="active"
+            >{{ profile?.email }}</a
+          >
+          <button mat-flat-button (click)="logout()">Logout</button>
         </div>
       </ng-template>
       <div class="cart">

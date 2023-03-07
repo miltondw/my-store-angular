@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'
+//Material
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button'
+
 //components
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -19,7 +23,9 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule,
+    MatCardModule
   ],
   exports: [
     ImgComponent,
@@ -27,6 +33,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ProductsComponent,
     ReversePipe,
     TimeAgoPipe,
+    MatButtonModule
   ]
 })
 export class SharedModule { }

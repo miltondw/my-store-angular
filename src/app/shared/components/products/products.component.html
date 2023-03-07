@@ -1,17 +1,3 @@
-<div class="grid-btns">
-  <!-- <button (click)="createProduct()">Create</button>
-  <button (click)="onShowDetail(123)">Error product</button>
-  <button (click)="createUser()">Create User</button>
-  <button (click)="downloadPDF()">DowLoad PDF</button>
-  <input type="file" (change)="onUploadFile($event)" />
-  <img
-    *ngIf="imgRta.location"
-    [src]="imgRta.location"
-    [alt]="imgRta.originalname"
-    width="200"
-    height="300"
-  /> -->
-</div>
 <div class="grid-products">
   <app-product
     [product]="product"
@@ -19,17 +5,27 @@
     (showDetail)="onShowDetail($event)"
     (addedProduct)="onAddToShoppingCart($event)"
   ></app-product>
-  <button *ngIf="btnMoreActive" (click)="onLoadMore()">Load More</button>
 </div>
+<button mat-flat-button color="primary" *ngIf="btnMoreActive" (click)="onLoadMore()">Load More</button>
 <div [class.detailActive]="detailActive" class="detail">
   <button class="closed" (click)="toggleDetail()">X</button>
   <div class="detail-product">
-    <app-img [img]="productDetail.images[0]"></app-img>
-    <h2>{{ productDetail.title }}</h2>
-    <p>${{ productDetail.price }}</p>
-    <p>{{ productDetail.description }}</p>
-    <p>{{ productDetail.category.name }}</p>
-    <button (click)="updateProduct()">Edit</button>
-    <button (click)="deleteProduct()">Delete</button>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{ productDetail.title }}</mat-card-title>
+      </mat-card-header>
+      <a mat-card-image [routerLink]="['/product/', productDetail.id]">
+        <app-img [img]="productDetail.images[0]"></app-img>
+      </a>
+      <mat-card-content>
+        <p>{{ productDetail.description }}</p>
+      </mat-card-content>
+      <mat-card-content>
+        <p class="price">${{ productDetail.price }}</p>
+        <p class="price" *ngIf="productDetail.taxes">
+          {{ productDetail.taxes | currency : "COP" }}
+        </p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
