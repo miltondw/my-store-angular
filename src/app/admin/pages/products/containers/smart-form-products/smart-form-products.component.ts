@@ -53,6 +53,7 @@ export class SmartFormProductsComponent implements OnInit {
   }
 
   updateProduct(dto:IUpdateProductDTO) {
+    console.log(dto,"update")
     this.productsService
     .update(this.product.id, dto)
       .subscribe(() => {

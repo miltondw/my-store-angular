@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { ICategory, IProduct, ICreateProductDTO,IUpdateProductDTO } from '@app/models/Product';
+import { ICategory, IProduct, ICreateProductDTO, IUpdateProductDTO } from '@app/models/Product';
 @Component({
   selector: 'app-form-products',
   templateUrl: './form-products.component.html',
@@ -8,23 +8,21 @@ import { ICategory, IProduct, ICreateProductDTO,IUpdateProductDTO } from '@app/m
 })
 export class FormProductsComponent {
 
-  isNew:boolean=true
+  isNew: boolean = true
 
-  @Input() categories:ICategory[]= []
+  @Input() categories: ICategory[] = []
   @Input()
-  set product(data:IProduct){
-    if(data){
-      console.log(data)
-      this.isNew=false
-      this.form.patchValue(data)
+  set product(data: IProduct) {
+    if (data) {
+      this.isNew = false
       this.categoryField?.setValue(data.category.id)
+      this.form.patchValue(data)
     }
   }
   @Output() create = new EventEmitter<ICreateProductDTO>();
   @Output() update = new EventEmitter<IUpdateProductDTO>();
 
   form: FormGroup = new FormGroup({})
-  selectedValue: string|null=null;
 
   constructor (
     private fb: FormBuilder,
@@ -37,17 +35,18 @@ export class FormProductsComponent {
       title: ['', Validators.required],
       price: ['', Validators.required],
       description: ['', Validators.required],
-      categoryId: [[''], Validators.required],
+      categoryId: ['', Validators.required],
       images: [[''], Validators.required],
     })
   }
 
   save() {
     if (this.form.valid) {
-      if (!this.isNew) {
-        this.update.emit(this.form.value)
-      } else {
+      if (this.isNew) {
         this.create.emit(this.form.value)
+      } else {
+        this.update.emit(this.form.value)
+        console.log(this.form.value,"save")
       }
     }
     else {
@@ -67,7 +66,7 @@ export class FormProductsComponent {
     return this.form.get('images')
   }
 
-  get categoryField(){
+  get categoryField() {
     return this.form.get('categoryId')
   }
 }
