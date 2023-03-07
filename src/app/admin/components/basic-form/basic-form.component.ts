@@ -40,7 +40,8 @@ export class BasicFormComponent {
       typeUser: ['company', Validators.required],
       companyName: ['', Validators.required],
       categories: [[""]],
-      address:this.fb.array([])
+      address:this.fb.array([]),
+      stock:[10,Validators.required]
     }, {
       validators: MyValidators.rango
     });

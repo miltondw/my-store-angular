@@ -12,6 +12,7 @@ import { ImgComponent } from './components/img/img.component';
 //Pipes
 import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ProductsComponent,
     ReversePipe,
     TimeAgoPipe,
+    StepperComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ProductsComponent,
     ReversePipe,
     TimeAgoPipe,
-    MatButtonModule
+    MatButtonModule,
+    StepperComponent
   ]
 })
 export class SharedModule { }

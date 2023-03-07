@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'
+import { SharedModule } from '../shared/shared.module'
+
 //Material
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -27,6 +29,7 @@ import { BasicFormComponent } from './components/basic-form/basic-form.component
   imports: [
     CommonModule,
     AdminRoutingModule,
+    SharedModule,
     MatIconModule,
     MatListModule,
     ReactiveFormsModule,
