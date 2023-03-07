@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
-
 const routes: Routes = [
   {
     path: '',
@@ -13,13 +12,14 @@ const routes: Routes = [
         redirectTo: 'grid',
         pathMatch: 'full'
       },
-      // {
-      //   path: 'products',
-      //   component: GridComponent,
-      // },
+      {
+        path: 'products',
+        loadChildren: () => import('./pages/products/products.module')
+          .then(c => c.ProductsModule)
+      },
       // {
       //   path: 'dashboard',
-      //   component: TasksComponent,
+      //   component: DashboardComponent,
       // },
       {
         path: 'form-basic',
@@ -28,10 +28,7 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () => import('./pages/categories/categories.module')
-        .then(c => c.CategoriesModule),
-        data: {
-          preload: true
-        }
+          .then(c => c.CategoriesModule)
       }
     ]
   }

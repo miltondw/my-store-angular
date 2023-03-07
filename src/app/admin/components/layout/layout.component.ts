@@ -12,12 +12,12 @@ export class LayoutComponent {
     {
       name: "Dashboard",
       link: "dashboard",
-      icon: "category"
+      icon: "dashboard"
     },
     {
       name: "Products",
       link: "products",
-      icon: "category"
+      icon: "store"
     },
     {
       name: "Form Basic",

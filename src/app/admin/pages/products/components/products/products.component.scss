@@ -18,3 +18,7 @@
 .mat-column-name {
   height: 100px;
 }
+.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-description.mat-column-description{
+  height: 100px;
+  overflow-y: scroll;
+}

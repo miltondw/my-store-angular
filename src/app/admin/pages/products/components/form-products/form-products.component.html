@@ -1,0 +1,113 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title
+        >{{ !isNew ? "Update" : "Create" }} Product</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input
+              placeholder="Title"
+              formControlName="title"
+              matInput
+              type="text"
+            />
+            <div class="messages" *ngIf="validValues('title')">
+              <mat-error *ngIf="titleField?.hasError('required')">
+                Your Title is required
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input
+              placeholder="Price"
+              formControlName="price"
+              matInput
+              type="number"
+            />
+            <div class="messages" *ngIf="validValues('price')">
+              <mat-error *ngIf="titleField?.hasError('required')">
+                The Price is required
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryId" name="categoryId">
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.id?category.id:categoryField?.value"
+              >
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input
+              placeholder="Description"
+              formControlName="description"
+              matInput
+              type="text"
+            />
+            <div class="messages" *ngIf="validValues('description')">
+              <mat-error *ngIf="titleField?.hasError('required')">
+                The Description is required
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input
+              placeholder="Image"
+              formControlName="images"
+              matInput
+              type="text"
+            />
+            <div class="messages" *ngIf="validValues('images')">
+              <mat-error *ngIf="imagesField?.hasError('required')">
+                The image is required
+              </mat-error>
+            </div>
+          </mat-form-field>
+          <img
+            [src]="imagesField?.value[0]"
+            [alt]="titleField?.value"
+            *ngIf="!isNew"
+            width="70"
+            style="object-fit: contain"
+            height="70"
+          />
+          <mat-hint>example: <i>https://picsum.photos/200</i></mat-hint>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit">
+        {{ !isNew ? "Update" : "Create" }} Product
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
