@@ -116,5 +116,33 @@
       getErrorMessage({ forName: "companyName" })
     }}</mat-error>
   </mat-form-field>
+  <div>
+    <h2>Address</h2>
+    <button type="button" (click)="addAddressField()">Add Address</button>
+    <div
+      formArrayName="address"
+      *ngFor="let address of addressField?.controls; let i = index"
+    >
+      <div [formGroupName]="i">
+        <mat-form-field appearance="fill">
+          <mat-label>Code Postal</mat-label>
+          <input matInput formControlName="code" type="number" required />
+          <mat-icon matSuffix>code</mat-icon>
+          <mat-error *ngIf="validValue({ forName: 'code' })">{{
+            getErrorMessage({ forName: "code" })
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" type="text" required />
+          <mat-icon matSuffix>address</mat-icon>
+          <mat-error *ngIf="validValue({ forName: 'address' })">{{
+            getErrorMessage({ forName: "address" })
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    <button type="button" (click)="removeAddressField(i)">Remove Address</button>
+    </div>
+  </div>
   <button mat-raised-button color="primary" type="submit">Submit</button>
 </form>

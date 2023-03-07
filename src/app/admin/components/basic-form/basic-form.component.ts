@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { IValues } from './Interface'
 import { MyValidators } from '@utils/validator'
 @Component({
@@ -11,11 +11,14 @@ import { MyValidators } from '@utils/validator'
 export class BasicFormComponent {
 
   categoriesList: string[] = ['Tech', 'Fashion', 'TV', 'Smartphone', 'shoes', 'others']
+
   form: FormGroup = new FormGroup({});
+
   constructor (private fb: FormBuilder) {
     this.buildForm()
   }
   regexFullName = /^(?=.{1,20}$)[a-zA-ZÀ-ÖØ-öø-ÿ]+(?:[-' ][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
+
   private buildForm() {
     this.form = this.fb.group({
       fullName: this.fb.group({
@@ -36,7 +39,8 @@ export class BasicFormComponent {
       rangePriceMax: ['', [Validators.required, Validators.min(10), Validators.max(100)]],
       typeUser: ['company', Validators.required],
       companyName: ['', Validators.required],
-      categories: [[""]]
+      categories: [[""]],
+      address:this.fb.array([])
     }, {
       validators: MyValidators.rango
     });
@@ -126,4 +130,21 @@ export class BasicFormComponent {
   get companyNameField() {
     return this.form.get('companyName')
   }
+  //Dynamic formFiled
+  addAddressField(){
+    this.addressField.push(this.createAddressField())
+  }
+  removeAddressField(id:number){
+    this.addressField.removeAt(id)
+  }
+  createAddressField(){
+    return this.fb.group({
+      code:['', Validators.required],
+      address:['', Validators.required],
+    })
+  }
+  get addressField() {
+    return this.form.get('address') as FormArray;
+  }
+
 }
