@@ -19,10 +19,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () => import('./website/website.module').then((w) => w.WebsiteModule),
-    data: {
-      preload: true
-    }
+    component: NotFoundComponent
   },
 ];
 
