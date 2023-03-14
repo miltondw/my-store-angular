@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuicklinkStrategy } from 'ngx-quicklink'
 import { AdminGuard } from './guards/admin.guard'
+
 const routes: Routes = [
   {
     path: '',
@@ -18,7 +19,10 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent
+    loadChildren: () => import('./website/website.module').then((w) => w.WebsiteModule),
+    data: {
+      preload: true
+    }
   },
 ];
 
